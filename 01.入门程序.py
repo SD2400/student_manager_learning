@@ -1,0 +1,11 @@
+# 需求:在控制台中输出Hello Python和Hello world (此行是注释,是给开发人员看的,Python解释器在运行代码时会完全忽略,"注释"的快捷键:ctrl＋/)
+print("Hello World")
+print("Hello Python")
+print("-----------")
+print("# # # # # # #  #")
+print("# 白 日 依 山 尽 #")
+print("# 黄 河 入 海 流 #")
+print("# 欲 穷 千 里 目 #")
+print("# 更 上 一 层 楼 #")
+print("# # # # # # #  #")
+
