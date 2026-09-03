@@ -75,9 +75,9 @@
 # b = 3.14
 # print(type(b))
 
-#isinstance(数据,类型),检查"数据"是否为"类型"类型
-a = "10"
-print(isinstance(a,int))
-print(isinstance(a,str))
-print(isinstance(10,float))
-print(isinstance(10,int))
+# #isinstance(数据,类型),检查"数据"是否为"类型"类型
+# a = "10"
+# print(isinstance(a,int))
+# print(isinstance(a,str))
+# print(isinstance(10,float))
+# print(isinstance(10,int))
