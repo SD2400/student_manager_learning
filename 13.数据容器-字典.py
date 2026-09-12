@@ -82,7 +82,7 @@
 # 5.退出购物车
 print("欢迎使用购物系统!")
 shopping = {}    #结构:shop = {"shopping_name":{"shopping_price":xxx,"shopping_num":xxx},xxx}
-print("""
+menu = """
 ########################
 #     添加购物车请输入1   #
 #     修改购物车请输入2   #
@@ -90,40 +90,49 @@ print("""
 #     查询购物车请输入4   #
 #     退出购物车请输入5   #
 ########################
-      """)
-a = int(input("请输入您要使用的功能(1-5):"))
-if a == 1:     #添加购物车
-    goods_name=input("请输入商品名称:")
-    goods_price=float(input("请输入商品价格:"))
-    goods_num=int(input("请输入商品数量:"))
-    if goods_name in shopping:
-        print("该商品已存在,请重新输入")
+      """
+while True:
+    print(menu)
+    a = int(input("请输入您要使用的功能(1-5):"))
+    if a == 1:  # 添加购物车,录入商品的名称,价格和数量
+        goods_name = input("请输入商品名称:")
+
+        goods_price = float(input("请输入商品价格:"))
+        goods_num = int(input("请输入商品数量:"))
+        if goods_name in shopping:
+            print("该商品已存在,请重新输入")
+        else:
+            shopping[goods_name] = {"price": goods_price, "num": goods_num}
+            print("商品已加入购物车!")
+
+    elif a == 2:  # 修改购物车,输入要修改的商品名称,价格和数量
+        goods_name = input("请输入要修改的商品名称:")
+        if goods_name not in shopping:
+            print("该商品不存在,请重新输入")
+            continue
+        goods_price = float(input("请输入商品最终的价格:"))
+        goods_num = int(input("请输入商品最终的数量:"))
+        shopping[goods_name]['price']=goods_price
+        shopping[goods_name]['num']=goods_num
+    elif a == 3:  # 删除购物车,删除键即可删除关于此键的所有信息
+        goods_name = input("请输入要删除的商品名称:")
+        if goods_name not in shopping:
+            print("商品不存在,请重新输入")
+        else:
+            del shopping[goods_name]
+            print("商品删除完毕")
+    elif a == 4:  # 查询购物车
+        for i in shopping:
+
+            print(f"商品名称:{i},商品价格:{shopping[i]['price']},商品数量:{shopping[i]['num']}")
+
+
+
+    elif a == 5:  # 退出购物车
+        print("您已退出购物车系统")
+        break
+
     else:
-        shopping[goods_name]={"price":goods_price,"num":goods_num }
-        print("商品已加入购物车!")
-
-elif a == 2:   #修改购物车
-    goods_name = input("请输入要修改的商品名称:")
-    goods_price = float(input("请输入商品最终的价格:"))
-    goods_num = int(input("请输入商品最终的数量:"))
-    if goods_name not in shopping:
-        print("该商品不存在,请重新输入")
-    else:
-        shopping[goods_name] = {"price": goods_price, "num": goods_num}
-        print("商品已修改")
-elif a == 3:   #删除购物车
-    goods_name = input("请输入要删除的商品名称:")
-    if goods_name not in shopping:
-        print("商品不存在,请重新输入")
-    else:
-        del shopping[goods_name]
-        print("商品删除完毕")
-elif a == 4:   #查询购物车
-
-elif a == 5:   #退出购物车
-
-
-else:
-    print("输入不符合规范,请重新输入!")
+        print("输入不符合规范,请重新输入!")
 
 
