@@ -75,24 +75,69 @@ class 类名:
 #实例属性:实例属性属于每个具体对象的属性,每个对象都是独立的(各个对象特有的数据)
 # 类属性:类属性是属于类本身的属性,所有实例共享的(所有对象共享的数据或配置)
 
+# class Car:
+#     #类属性,通过 类名.属性 的方式查询
+#     rate = 0.1
+#     num_tire = 4
+#     def __init__(self,c_color,c_price,c_name):
+#         #实例属性,通过 实例对象.属性 的方式查询
+#         self.color = c_color
+#         self.price = c_price
+#         self.name = c_name
+#         self.rate = 0.2
+#     def running(self):
+#         print(f"一辆{self.color}的{self.name}正在高速上行驶...")
+#     def total_price(self,discount,rate):
+#         return discount * self.price + rate * self.price
+# C1 = Car("红色",45000,"奔驰")
+# #通过实例查找属性时,会先查询实例属性,实例属性不存在,再查询类属性
+# print("C1的价格:",C1.price)
+# print("C1的税率:",C1.rate)
+# print("Car这个类的税率:",Car.rate)
+# print("C1的轮胎数量:",C1.num_tire)
+# print("Car的轮胎数量:",Car.num_tire)
+
+######################### 魔法方法 ##############################
+# 魔法方法:指的是Python中以双下划线开头和结尾的特殊方法,用于定义类的特殊行为
+# 魔法方法不需要我们手动调用,它会在合适的时机自动调用
+
+#一些常见的魔法方法
+"""
+__init__ : 初始化方法
+__str__  : 字符串表示的方法
+__eq__   : 比较两个对象是否相等(equal)
+__lt__   : 支持比较两个对象的大小,小于(less than)
+__le__   : 同上,小于等于(less than equal)
+__gt__   : 同上,大于(greater than)
+__ge__   : 同上,大于等于(greater than equal)
+"""
+# class Car:
+#     def __init__(self,color,name,price):
+#         self.color = color
+#         self.name = name
+#         self.price = price
+# C1 = Car("红色","byd",500000)
+# C2 = Car("红色","byd",500000)
+# print(C1) #默认输出出来的是对象的内存地址(16进制)
+# print(C2)
+# print(C1==C2) #默认基于对象的内存地址进行比较
+
+
 class Car:
-    #类属性,通过 类名.属性 的方式查询
-    rate = 0.1
-    num_tire = 4
-    def __init__(self,c_color,c_price,c_name):
-        #实例属性,通过 实例对象.属性 的方式查询
-        self.color = c_color
-        self.price = c_price
-        self.name = c_name
-        self.rate = 0.2
-    def running(self):
-        print(f"一辆{self.color}的{self.name}正在高速上行驶...")
-    def total_price(self,discount,rate):
-        return discount * self.price + rate * self.price
-C1 = Car("红色",45000,"奔驰")
-#通过实例查找属性时,会先查询实例属性,实例属性不存在,再查询类属性
-print("C1的价格:",C1.price)
-print("C1的税率:",C1.rate)
-print("Car这个类的税率:",Car.rate)
-print("C1的轮胎数量:",C1.num_tire)
-print("Car的轮胎数量:",Car.num_tire)
+    def __init__(self,color,name,price):
+        self.color = color
+        self.name = name
+        self.price = price
+    def __str__(self):
+        return f"颜色为:{self.color},品牌为:{self.name},价格为:{self.price}"
+    def __eq__(self,other):
+        return self.color == other.color and self.name ==  other.name and self.price == other.price
+    def __lt__(self,other):
+        return self.price < other.price
+C1 = Car("红色","byd",500000)
+C2 = Car("红色","byd",500000)
+print(C1)
+print(C2)
+print(C1==C2)
+print(C1<C2)
+
