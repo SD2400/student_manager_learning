@@ -122,22 +122,152 @@ __ge__   : 同上,大于等于(greater than equal)
 # print(C2)
 # print(C1==C2) #默认基于对象的内存地址进行比较
 
+#
+# class Car:
+#     def __init__(self,color,name,price):
+#         self.color = color
+#         self.name = name
+#         self.price = price
+#     def __str__(self):
+#         return f"颜色为:{self.color},品牌为:{self.name},价格为:{self.price}"
+#     def __eq__(self,other):
+#         return self.color == other.color and self.name ==  other.name and self.price == other.price
+#     def __lt__(self,other):
+#         return self.price < other.price
+# C1 = Car("红色","byd",500000)
+# C2 = Car("红色","byd",500000)
+# print(C1)
+# print(C2)
+# print(C1==C2)
+# print(C1<C2)
 
-class Car:
-    def __init__(self,color,name,price):
-        self.color = color
+"""
+案例:
+采用面向对象的编程思想,完成教务系统管理的开发,教务管理系统可以管理在校学生的成绩信息,
+通过控制台菜单与用户交互,具体的功能如下:
+1.添加学生成绩:根据输入的学生姓名,语文成绩,数学成绩,英语成绩,记录在系统中
+  1.1 输入学生姓名,语文成绩,数学成绩,英语成绩
+  1.2 检查学生姓名是否已存在,如果学生不存在,再添加(存在则不添加)
+  1.3 验证成绩范围(0-100)
+  1.4 创建学生对象并添加到系统
+2.修改学生成绩:根据输入的学生姓名,修改对应的学生成绩
+  2.1 输入要修改的学生姓名
+  2.2 根据姓名查找该学生,显示该学生当前成绩信息
+  2.3 输入新的语文,数学,英语成绩
+  2.4 更新学生成绩数据
+3.删除学生成绩:根据输入的学生姓名,删除对应的学生成绩
+4.查询指定学生成绩:根据输入的学生姓名,查找对应的学生成绩,并输出
+  4.1 输出格式为:"姓名: 张三 | 语文:85 | 数学:90 | 英语:88 | 总分:263"
+5.展示全部学生成绩:展示出系统中所有学生的成绩
+
+"""
+
+#创建学生类
+class Student:
+    def __init__(self,name,chinese,math,english):
         self.name = name
-        self.price = price
+        self.chinese = chinese
+        self.math = math
+        self.english = english
+        self.total = self.chinese + self.math + self.english
+    #将学生类对象的输出结果变为字符串
     def __str__(self):
-        return f"颜色为:{self.color},品牌为:{self.name},价格为:{self.price}"
-    def __eq__(self,other):
-        return self.color == other.color and self.name ==  other.name and self.price == other.price
-    def __lt__(self,other):
-        return self.price < other.price
-C1 = Car("红色","byd",500000)
-C2 = Car("红色","byd",500000)
-print(C1)
-print(C2)
-print(C1==C2)
-print(C1<C2)
+        return f"姓名: {self.name} | 语文:{self.chinese} | 数学:{self.math} | 英语:{self.english} |总分:{self.total} "
 
+    #修改学生成绩
+    def update(self,chinese=None,math=None,english=None):
+        if chinese is not None:
+            self.chinese = chinese
+        if math is not None:
+            self.math = math
+        if english is not None:
+            self.english = english
+# 创建教务系统类
+class EduManagement:
+    #定义两个类属性
+    system_version = "1.0"
+    system_name = "教务管理系统"
+    def __init__(self):
+        self.student_list = []   #创建学生列表
+    #添加学生
+    def add_student(self):
+        name = input("请输入学生的姓名:")
+        for i in self.student_list:
+            if i.name == name:
+                print("该学生已存在,请重新输入!")
+                return
+        chinese = int(input("请输入该学生的语文成绩:"))
+        math = int(input("请输入该学生的数学成绩:"))
+        english = int(input("请输入该学生的英语成绩:"))
+        if 0 <= chinese <=100 and 0 <= math <= 100 and 0 <= english <=100:
+            stu = Student(name,chinese,math,english)
+            self.student_list.append(stu)
+            print("学生添加成功!")
+            return
+        else:
+            print("学生的成绩不满足要求:0 - 100")
+    #修改学生
+    def update_student(self):
+        name = input("请输入要修改的学生姓名:")
+        for i in self.student_list:
+            if i.name == name:
+                print(f"当前成绩为:{i}")
+                chinese = int(input("请输入修改后的语文成绩:"))
+                math = int(input("请输入修改后的数学成绩:"))
+                english = int(input("请输入修改后的英语成绩:"))
+                if 0 <= chinese <= 100 and 0 <= math <= 100 and 0 <= english <= 100:
+                    i.update(name,chinese,math,english)
+                    print(f"修改后的成绩为:{i}")
+                    return
+                else:
+                    print("学生的成绩不满足要求:0 - 100")
+                    return
+        print("未找到该学生,请重新输入!")
+    #删除学生
+    def delete_student(self):
+        name = input("请输入要删除的学生姓名:")
+        for i in self.student_list:
+            if i.name == name:
+                self.student_list.remove(i)
+                print("该学生已删除!")
+                return
+        print("未找到该学生,请重新输入!")
+    #查询指定学生
+    def find_student(self):
+        name = input("请输入要查询的学生姓名:")
+        for i in self.student_list:
+            if i.name == name:
+                print(i)
+                return
+        print("未找到该学生,请重新输入!")
+
+    #展示全部学生
+    def show_student(self):
+        for i in self.student_list:
+            print(i)
+
+    def run(self):
+        print(f"欢迎使用教务管理系统{EduManagement.system_version}")
+        while True:
+            print("""
+            #######################################################################
+            #1.添加学生  2.修改学生  3.删除学生  4.查询指定学生  5.展示全部学生  6.退出系统  #
+            #######################################################################
+                  """)
+            a = int(input("请选择要输入的数字(1-6):"))
+            match a:
+                case 1:
+                    self.add_student()
+                case 2:
+                    self.update_student()
+                case 3:
+                    self.delete_student()
+                case 4:
+                    self.find_student()
+                case 5:
+                    self.show_student()
+                case 6:
+                    print("bye~")
+                    break
+                case _:
+                    print("输入错误!")
