@@ -41,13 +41,62 @@
 # # ③使用列表的copy()方法
 # a = [1,2,3]
 # b = a.copy()
-# 例题:
+#############################深浅拷贝在字典中的应用############################
+# student = {"name":"小明","scores":{"语文":90,"数学":95}}
+#使用浅拷贝
+# import copy
+# student = {"name":"小明","scores":{"语文":90,"数学":95}}
+# new_student = copy.copy(student)
+# new_student["name"]="小红"
+# new_student["scores"]["数学"]=100
+# print(student) #{"name":"小明","scores":{"语文":90,"数学":100}}
+# print(new_student) #{"name":"小红","scores":{"语文":90,"数学":100}}
+
+#使用深拷贝
+# import copy
+# student = {"name":"小明","scores":{"语文":90,"数学":95}}
+# new_student = copy.deepcopy(student)
+# new_student["name"]="小红"
+# new_student["scores"]["数学"]=100
+# print(student) #{"name":"小明","scores":{"语文":90,"数学":95}}
+# print(new_student) #{"name":"小红","scores":{"语文":90,"数学":100}}
+
+##########################深浅拷贝在类和对象中的运用###############################
+# import copy
+# #定义一个商品类
+# class Shopping:
+#     def __init__(self,name,price,tags):
+#         self.name = name
+#         self.price = price
+#         self.tags = tags
+# #创建一个商品类对象
+# s1 = Shopping("苹果",5,["水果","新鲜"])
+# #复制这个对象
+# s2 = copy.copy(s1)
+# print(s1.tags)
+# print(s2.tags)
+# s2.tags[1] = "不新鲜"
+# print(s1.tags)
+# print(s2.tags)
+# print(s1.tags is s2.tags)
+
+####################使用is判断两个变量是否指向同一个对象##############
+# x = [1,2]
+# a = [x,x]
+# print(a[0] is a[1])
+# import copy
+# b= copy.deepcopy(a)
+# print(b[0] is b[1])
+
+##################拷贝不可变量###############
+# 深拷贝不代表:所有东西都会生成一个全新对象,例如一些不可变对象
+# int,str,tuple中的不可变内容,可能直接复用
 import copy
-a = [[1,2],[3,4]]
-b = copy.copy(a)  #浅拷贝  ,
-c = copy.deepcopy(a) #深拷贝
-b[0].append(5)
-c[1].append(6)
-print(a) #[[1,2,5],[3,4]]
-print(b) #[[1,2,5],[3,4]]
-print(c) #[[1,2],[3,4,6]]
+a = (1,2,3)
+b = copy.deepcopy(a)
+print(a is b)
+#但当不可变量里嵌套可变量时
+a1 = (1,2,[3,4])
+b1 = copy.deepcopy(a1)
+print(a1 is b1)
+print(a1[2] is b1[2])  #当不可变对象中嵌套可变对象时,深拷贝创建新对象,内部可变对象独立
