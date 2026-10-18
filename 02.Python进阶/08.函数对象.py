@@ -69,8 +69,72 @@
 ##########################七 高阶函数
 #可以被称为高阶函数的条件:
 #1.接收其他函数作为参数   2.返回一个函数对象作为结果
-def square(x):
-    return x * x
-def process(func,number):  #高阶函数
-    return func(number)
-print(process(square,3))
+# def square(x):
+#     return x * x
+# def process(func,number):  #高阶函数
+#     return func(number)
+# print(process(square,3))
+
+#callable():用来判断一个对象能不能被()调用,语法:callable(对象),返回一个布尔值
+#可调用对象:函数,内置函数,类,类的方法...
+# import copy
+# def test():
+#     pass
+# print(callable(test))
+# print(callable(copy.copy))
+# def run_task(task, data):
+#     if callable(task):        # 是函数才调用
+#         return task(data)
+#     else:
+#         return task           # 不是函数，直接返回原值
+#
+# print(run_task(len, [1, 1, 1]))  # 3  （len 是函数，被调用）
+# print(run_task("hello", [1]))     # hello （字符串不是函数，原样返回）
+
+#callback回调函数:把一个函数本身传给另一个函数,让另一个函数决定什么时候调用它
+# 例:
+# def hello():
+#     print("你好")
+# def run(callback):
+#     callback()
+# run(hello)
+
+#sorted():用来排序,并返回一个新的列表
+#语法:sorted(数据,key=None,reverse=False)
+#key表示每个元素应该拿什么值作为排序依据
+#例:
+# students = [
+#     {"name":"张三","score":80},
+#     {"name":"李四","score":95},
+#     {"name":"王五","score":70}
+# ]
+# result = sorted(students,key=lambda x:x["score"])
+# print(result)
+
+#map():对可迭代对象中的每一个元素执行同一个函数
+#语法:map(函数,可迭代对象)
+#例:
+# nums = [1,2,3]
+# result = map(
+#     lambda x: x * 2,
+#     nums
+# )
+# print(list(result))
+# def add(i):
+#     return i+3
+# result1 = map(
+#     add,
+#     nums
+# )
+# print(list(result1))
+
+#filter():根据条件筛选数据
+#语法:filter(函数,可迭代对象)
+#这个函数需要返回真假值
+# 例:
+nums = [1,2,3,4]
+result =filter(
+    lambda x:x>2,
+    nums
+)
+print(list(result))
